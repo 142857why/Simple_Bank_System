@@ -6,7 +6,7 @@ public class Person implements Serializable {
     private transient int age;
 
     public Man getMan() {
-        return man;
+        return this.man;
     }
 
     public void setMan(Man man) {

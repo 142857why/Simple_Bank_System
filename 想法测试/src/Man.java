@@ -20,5 +20,9 @@ public class Man implements Serializable {
         this.password = password;
     }
 
+    public Man(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
 
 }

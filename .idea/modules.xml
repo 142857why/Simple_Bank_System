@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/JavaFX_Test/JavaFX_Test.iml" filepath="$PROJECT_DIR$/JavaFX_Test/JavaFX_Test.iml" />
       <module fileurl="file://$PROJECT_DIR$/Simple_Bank_System.iml" filepath="$PROJECT_DIR$/Simple_Bank_System.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/个人lab/个人lab.iml" filepath="$PROJECT_DIR$/个人lab/个人lab.iml" />
       <module fileurl="file://$PROJECT_DIR$/想法测试/想法测试.iml" filepath="$PROJECT_DIR$/想法测试/想法测试.iml" />
     </modules>
   </component>
