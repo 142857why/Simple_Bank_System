@@ -8,18 +8,20 @@ import java.util.Calendar;
 public class GUIOpenAccount extends JFrame implements ActionListener {
 
     private JPanel panelInfo, panelControl, panelDateSelect;
-    private JLabel lbName, lbAddress, lbDateBirth;
+    private JLabel lbName, lbAddress, lbDateBirth, lbType;
     private JButton btOkay, btCancel;
     private JTextField textFieldName, textFieldAddress;
+
     public GUIOpenAccount() {
-        this.setTitle("Welcome to Bank of Rui Zhou!");
+        this.setTitle("Thank you for choosing Bank Of Rui Zhou!");
         this.setResizable(false);
         this.setLayout(new BorderLayout());
 
         panelInfo = new JPanel();
         panelControl = new JPanel();
-        panelDateSelect = new JPanel();
 
+        //---------------------------------------------
+        panelDateSelect = new JPanel();
         panelDateSelect.setBorder(new EmptyBorder(30, 40, 40, 40));
         panelDateSelect.setLayout(new FlowLayout());
         final JComboBox year = new JComboBox();
@@ -33,6 +35,7 @@ public class GUIOpenAccount extends JFrame implements ActionListener {
         year.addItemListener(e -> setDay(year, month, day));
         month.addItemListener(e -> setDay(year, month, day));
         setDay(year, month, day);
+        //------------------------------------------------
 
         panelInfo.setLayout(new GridLayout(4, 2, 30, 30));
         panelControl.setLayout(new FlowLayout());
@@ -40,9 +43,15 @@ public class GUIOpenAccount extends JFrame implements ActionListener {
         lbName = new JLabel("Name:", SwingConstants.CENTER);
         lbAddress = new JLabel("Address", SwingConstants.CENTER);
         lbDateBirth = new JLabel("Please select your date of birth", SwingConstants.CENTER);
+        lbType = new JLabel("Please Select the Type of Account", SwingConstants.CENTER);
 
         textFieldName = new JTextField(SwingConstants.CENTER);
         textFieldAddress = new JTextField(SwingConstants.CENTER);
+
+        JComboBox comboBoxAccountType = new JComboBox();
+        comboBoxAccountType.addItem("Saver");
+        comboBoxAccountType.addItem("Junior");
+        comboBoxAccountType.addItem("Current");
 
         panelInfo.add(lbName);
         panelInfo.add(textFieldName);
@@ -50,6 +59,8 @@ public class GUIOpenAccount extends JFrame implements ActionListener {
         panelInfo.add(textFieldAddress);
         panelInfo.add(lbDateBirth);
         panelInfo.add(panelDateSelect);
+        panelInfo.add(lbType);
+        panelInfo.add(comboBoxAccountType);
 
         btOkay = new JButton("OK");
         btCancel = new JButton("Cancel");
@@ -59,7 +70,32 @@ public class GUIOpenAccount extends JFrame implements ActionListener {
         this.add(panelInfo, BorderLayout.CENTER);
         this.add(panelControl, BorderLayout.SOUTH);
         new GUIInit().initFrame(this);
+
+        btCancel.addActionListener(e-> {
+            dispose();
+            new GUIFunctionChoose().setVisible(true);
+        });
+
+        btOkay.addActionListener(e -> {
+            String accountType = String.valueOf(comboBoxAccountType.getSelectedItem());
+            String userName = textFieldName.getText();
+            String address = textFieldAddress.getText();
+            String yearString = (String) year.getSelectedItem();
+            String monthString = (String) month.getSelectedItem();
+            String dayString = (String) day.getSelectedItem();
+
+            System.out.println(accountType);
+            System.out.println(userName);
+            System.out.println(address);
+            System.out.println(yearString);
+            System.out.println(monthString);
+            System.out.println(dayString);
+
+            new GUIInitAccountInfo(this).setVisible(true);
+        });
     }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
 

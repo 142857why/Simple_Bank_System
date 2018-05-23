@@ -7,17 +7,17 @@ public class GUIInit extends JFrame implements ActionListener {
     void initFrame(JFrame myFrame) {
         //when trying to call this method, remember to pass this
         myFrame.setSize(800, 600);
-        myFrame.setLocation(400, 150);
+        //myFrame.setLocation(400, 150);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setLocationRelativeTo(myFrame.getOwner());
         myFrame.setVisible(true);
     }
 
-    void initDialog(JFrame myFrame) {
-        myFrame.setSize(240, 180);
-        myFrame.setLocation(900, 300);
-        //myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myFrame.setVisible(true);
+    void initDialog(JDialog myDialog) {
+        myDialog.setSize(600, 175);
+        myDialog.setVisible(true);
+        myDialog.setLocationRelativeTo(myDialog.getOwner());
+
     }
 
     @Override
