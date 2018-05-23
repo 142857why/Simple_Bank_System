@@ -77,21 +77,30 @@ public class GUIOpenAccount extends JFrame implements ActionListener {
         });
 
         btOkay.addActionListener(e -> {
+            //0, 1, 2
+            //Saver, Junior, Current
             String accountType = String.valueOf(comboBoxAccountType.getSelectedItem());
             String userName = textFieldName.getText();
             String address = textFieldAddress.getText();
-            String yearString = (String) year.getSelectedItem();
-            String monthString = (String) month.getSelectedItem();
-            String dayString = (String) day.getSelectedItem();
 
-            System.out.println(accountType);
-            System.out.println(userName);
-            System.out.println(address);
-            System.out.println(yearString);
-            System.out.println(monthString);
-            System.out.println(dayString);
+            int yearInt = Integer.parseInt((String) year.getSelectedItem());
+            int monthInt = Integer.parseInt((String) month.getSelectedItem());
+            int dayInt = Integer.parseInt((String) day.getSelectedItem());
 
-            new GUIInitAccountInfo(this).setVisible(true);
+            String birthday = getBirthday(yearInt, monthInt, dayInt);
+            Boolean flag = new ControlOpenAccount().isAgeAbove16(yearInt, monthInt, dayInt);
+
+            if ((flag) && accountType.equals("Junior")) {
+                JOptionPane.showMessageDialog(this,
+                        "You can't open a Junior Account since you are over 16!",
+                        "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+            else {
+                new GUICheckCredit(userName, address, birthday, accountType);
+                dispose();
+                //new GUIInitAccountInfo(this).setVisible(true);
+            }
+
         });
     }
 
@@ -123,5 +132,11 @@ public class GUIOpenAccount extends JFrame implements ActionListener {
             m[i] = String.valueOf(i + start);
         }
         return m;
+    }
+
+    private String getBirthday(int x, int y, int z) {
+        String returnString = null;
+        returnString = "" + String.valueOf(x) + ControlDate.twoDigit(y) + ControlDate.twoDigit(z);
+        return returnString;
     }
 }

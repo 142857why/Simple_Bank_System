@@ -71,7 +71,7 @@ public class GUIWithdrawSuspendClose extends JFrame implements ActionListener {
         lbNumBalance.setBounds(280, 35, 145, lbNumBalance.getPreferredSize().height);
 
         //---- lbNumOverlimit ----
-        lbNumOverlimit.setText("balabala");
+        lbNumOverlimit.setText("$1000.00");
         lbNumOverlimit.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(lbNumOverlimit);
         lbNumOverlimit.setBounds(279, 70, 145, 16);
@@ -83,6 +83,7 @@ public class GUIWithdrawSuspendClose extends JFrame implements ActionListener {
         lbAccountType.setBounds(470, 45, 159, 19);
 
         //---- lbAccountTypeString ----
+        //显示账户类型
         lbAccountTypeString.setText("Saver");
         lbAccountTypeString.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(lbAccountTypeString);
@@ -120,6 +121,25 @@ public class GUIWithdrawSuspendClose extends JFrame implements ActionListener {
         this.pack();
         new GUIInit().initFrame(this);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
+
+        //----------------
+        btReturn.addActionListener(e -> {
+            dispose();
+            new GUIManageAccount();
+        });
+
+        btSuspend.addActionListener(e -> {
+            new GUIWarningSuspend(this);
+        });
+
+        btDelete.addActionListener(e -> {
+            new GUIWarningDelete(this);
+        });
+
+        btChangePIN.addActionListener(e -> {
+            this.dispose();
+            new GUIChangePIN(); //注意这儿的调用得带着account number
+        });
     }
     @Override
     public void actionPerformed(ActionEvent e) {

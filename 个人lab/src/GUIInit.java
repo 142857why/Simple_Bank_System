@@ -11,6 +11,7 @@ public class GUIInit extends JFrame implements ActionListener {
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myFrame.setLocationRelativeTo(myFrame.getOwner());
         myFrame.setVisible(true);
+        myFrame.setResizable(false);
     }
 
     void initDialog(JDialog myDialog) {

@@ -76,6 +76,11 @@ public class GUIManageAccount extends JFrame implements ActionListener {
             dispose();
             new GUIWithdrawSuspendClose();
         });
+
+        btDeposit.addActionListener(e -> {
+            dispose();
+            new GUIDeposit();
+        });
     }
     @Override
     public void actionPerformed(ActionEvent e) {

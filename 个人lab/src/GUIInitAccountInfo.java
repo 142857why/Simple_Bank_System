@@ -5,17 +5,9 @@ import java.awt.event.ActionListener;
 
 public class GUIInitAccountInfo extends JDialog implements ActionListener {
 
-    public GUIInitAccountInfo(Frame owner) {
+    public GUIInitAccountInfo(Frame owner, String accountName, String PIN) {
         super(owner);
-        initComponents();
-    }
 
-    public GUIInitAccountInfo(Dialog owner) {
-        super(owner);
-        initComponents();
-    }
-
-    private void initComponents() {
         lbAccountMessage = new JLabel();
         lbPINMessage = new JLabel();
         btOkay = new JButton();
@@ -36,7 +28,7 @@ public class GUIInitAccountInfo extends JDialog implements ActionListener {
         lbAccountMessage.setBounds(5, 40, 250, 25);
 
         //---- lbPINMessage ----
-        lbPINMessage.setText("This is your intial PIN");
+        lbPINMessage.setText("This is your initial PIN");
         lbPINMessage.setHorizontalAlignment(SwingConstants.CENTER);
         lbPINMessage.setFont(new Font("Segoe UI", Font.PLAIN, 18));
         contentPane.add(lbPINMessage);
@@ -48,13 +40,13 @@ public class GUIInitAccountInfo extends JDialog implements ActionListener {
         btOkay.setBounds(new Rectangle(new Point(285, 105), btOkay.getPreferredSize()));
 
         //---- lbAccount ----
-        lbAccount.setText("bala");
+        lbAccount.setText(accountName);
         lbAccount.setFont(new Font("Segoe UI", Font.BOLD, 18));
         contentPane.add(lbAccount);
         lbAccount.setBounds(406, 40, 185, 25);
 
         //---- lbPIN ----
-        lbPIN.setText("bala");
+        lbPIN.setText(PIN);
         lbPIN.setFont(new Font("Segoe UI", Font.BOLD, 18));
         contentPane.add(lbPIN);
         lbPIN.setBounds(405, 65, 185, 25);
