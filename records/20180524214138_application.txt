@@ -1,0 +1,4 @@
+Name: liyonghua
+Address: BUPT
+BirthDay: 19820101
+Type: Current

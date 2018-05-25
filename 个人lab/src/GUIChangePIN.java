@@ -16,7 +16,7 @@ public class GUIChangePIN extends JFrame implements ActionListener {
     private JButton btOK;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
-    public GUIChangePIN() {
+    public GUIChangePIN(String accountName) {
         lbNewPIN1 = new JLabel();
         passFieldNewPIN1 = new JPasswordField();
         btReturn = new JButton();
@@ -70,6 +70,37 @@ public class GUIChangePIN extends JFrame implements ActionListener {
         btOK.setBounds(560, 480, 78, 40);
 
         new GUIInit().initFrame(this);
+
+        btReturn.addActionListener(e -> {
+            dispose();
+            new GUIWithdrawSuspendClose(accountName);
+        });
+
+        btOK.addActionListener(e -> {
+            String oldPIN = String.valueOf(passFieldOldPIN.getPassword());
+            String newPIN1 = String.valueOf(passFieldNewPIN1.getPassword());
+            String newPIN2 = String.valueOf(passFieldNewPIN2.getPassword());
+
+            if (newPIN1.equals(newPIN2)) {
+                if (ControlAccount.checkPassword(accountName, oldPIN)) {
+                    IOAccount.changePIN(accountName, newPIN1);
+                    dispose();
+                    new GUIWithdrawSuspendClose(accountName);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this,
+                            "Wrong PIN for the account",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else {
+                JOptionPane.showMessageDialog(this,
+                        "You must enter the same PIN",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        });
     }
 
 

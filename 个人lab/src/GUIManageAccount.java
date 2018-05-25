@@ -72,9 +72,54 @@ public class GUIManageAccount extends JFrame implements ActionListener {
             new GUIFunctionChoose();
         });
 
+        //----------------login section
         btLogin.addActionListener(e-> {
-            dispose();
-            new GUIWithdrawSuspendClose();
+            String accountName = textFieldAccount.getText();
+
+            String givenPIN = String.valueOf(passFieldPIN.getPassword());
+            boolean checkExist = ControlAccount.checkAccountExist(accountName);
+            if (!checkExist) {
+                JOptionPane.showMessageDialog(this,
+                        "Account Not Exist!",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else
+            {
+                boolean checkDispose = ControlAccount.checkSuspend(accountName);
+                if (checkDispose) {
+                    int reuseChoice = JOptionPane.showConfirmDialog(this,
+                            "The Account has been suspended. Would you like to Re-instated?",
+                            "Warning", JOptionPane.YES_NO_OPTION);
+
+                    if (reuseChoice==0) {
+                        boolean checkPIN = ControlAccount.checkPassword(accountName, givenPIN);
+                        if (!checkPIN) {
+                            JOptionPane.showMessageDialog(this,
+                                    "Wrong password",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                        else {
+                            ControlAccount.suspendAccount(accountName, false);
+                            dispose();
+                            new GUIWithdrawSuspendClose(accountName);
+                        }
+                    }
+                    //System.out.println("账户被停用了！");
+
+                }
+                else {
+                    boolean checkPIN = ControlAccount.checkPassword(accountName, givenPIN);
+                    if (checkPIN) {
+                        dispose();
+                        new GUIWithdrawSuspendClose(accountName);
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(this,
+                                "Wrong password",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
         });
 
         btDeposit.addActionListener(e -> {

@@ -6,15 +6,7 @@ import java.awt.event.ActionListener;
 public class GUIWarningMessage extends JDialog implements ActionListener {
     public GUIWarningMessage(Frame owner) {
         super(owner);
-        initComponents();
-    }
 
-    public GUIWarningMessage(Dialog owner) {
-        super(owner);
-        initComponents();
-    }
-
-    private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         btConfirm = new JButton();
         btCancel = new JButton();

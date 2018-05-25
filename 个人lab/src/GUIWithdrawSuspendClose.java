@@ -18,7 +18,11 @@ public class GUIWithdrawSuspendClose extends JFrame implements ActionListener {
     private JButton btReturn;
     private JButton btChangePIN;
 
-    public GUIWithdrawSuspendClose() {
+    public GUIWithdrawSuspendClose(String accountName) {
+
+        String balanceString = ControlAccount.getBalanceType(accountName, true);
+        String typeString = ControlAccount.getBalanceType(accountName,false);
+
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         lbWithdrawMessage = new JLabel();
         lbBalance = new JLabel();
@@ -65,7 +69,7 @@ public class GUIWithdrawSuspendClose extends JFrame implements ActionListener {
         btWithdraw.setBounds(640, 150, 145, btWithdraw.getPreferredSize().height);
 
         //---- lbNumBalance ----
-        lbNumBalance.setText("balabala");
+        lbNumBalance.setText(balanceString);
         lbNumBalance.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(lbNumBalance);
         lbNumBalance.setBounds(280, 35, 145, lbNumBalance.getPreferredSize().height);
@@ -84,7 +88,7 @@ public class GUIWithdrawSuspendClose extends JFrame implements ActionListener {
 
         //---- lbAccountTypeString ----
         //显示账户类型
-        lbAccountTypeString.setText("Saver");
+        lbAccountTypeString.setText(typeString);
         lbAccountTypeString.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(lbAccountTypeString);
         lbAccountTypeString.setBounds(620, 45, 145, 16);
@@ -129,16 +133,18 @@ public class GUIWithdrawSuspendClose extends JFrame implements ActionListener {
         });
 
         btSuspend.addActionListener(e -> {
+            ControlAccount.suspendAccount(accountName, true);
             new GUIWarningSuspend(this);
         });
 
         btDelete.addActionListener(e -> {
+            ControlAccount.deleteAccount(accountName);
             new GUIWarningDelete(this);
         });
 
         btChangePIN.addActionListener(e -> {
             this.dispose();
-            new GUIChangePIN(); //注意这儿的调用得带着account number
+            new GUIChangePIN(accountName); //注意这儿的调用得带着account number
         });
     }
     @Override
