@@ -1,0 +1,4 @@
+Name: zhangsan
+Address: BUPT
+BirthDay: 19961016
+Type: Saver

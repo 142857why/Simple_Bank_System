@@ -16,6 +16,9 @@ public class GUIChangePIN extends JFrame implements ActionListener {
     private JButton btOK;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
+    /**
+     * @param accountName the account number needs to be processed later
+     */
     public GUIChangePIN(String accountName) {
         lbNewPIN1 = new JLabel();
         passFieldNewPIN1 = new JPasswordField();
@@ -81,7 +84,7 @@ public class GUIChangePIN extends JFrame implements ActionListener {
             String newPIN1 = String.valueOf(passFieldNewPIN1.getPassword());
             String newPIN2 = String.valueOf(passFieldNewPIN2.getPassword());
 
-            if (newPIN1.equals(newPIN2)) {
+            if (newPIN1.equals(newPIN2) && !newPIN1.equals("")) {
                 if (ControlAccount.checkPassword(accountName, oldPIN)) {
                     IOAccount.changePIN(accountName, newPIN1);
                     dispose();
@@ -102,7 +105,6 @@ public class GUIChangePIN extends JFrame implements ActionListener {
 
         });
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

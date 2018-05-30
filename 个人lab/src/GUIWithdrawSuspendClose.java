@@ -69,7 +69,7 @@ public class GUIWithdrawSuspendClose extends JFrame implements ActionListener {
         btWithdraw.setBounds(640, 150, 145, btWithdraw.getPreferredSize().height);
 
         //---- lbNumBalance ----
-        lbNumBalance.setText(balanceString);
+        lbNumBalance.setText("$" + String.format("%.2f", Double.parseDouble(balanceString)));
         lbNumBalance.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(lbNumBalance);
         lbNumBalance.setBounds(280, 35, 145, lbNumBalance.getPreferredSize().height);
@@ -133,18 +133,50 @@ public class GUIWithdrawSuspendClose extends JFrame implements ActionListener {
         });
 
         btSuspend.addActionListener(e -> {
-            ControlAccount.suspendAccount(accountName, true);
-            new GUIWarningSuspend(this);
+            //ControlAccount.suspendAccount(accountName, true);
+            new GUIWarningSuspend(this, accountName);
         });
 
         btDelete.addActionListener(e -> {
-            ControlAccount.deleteAccount(accountName);
-            new GUIWarningDelete(this);
+            //ControlAccount.deleteAccount(accountName);
+            new GUIWarningDelete(this, accountName);
         });
 
         btChangePIN.addActionListener(e -> {
-            this.dispose();
+            dispose();
             new GUIChangePIN(accountName); //注意这儿的调用得带着account number
+        });
+
+        btWithdraw.addActionListener(e -> {
+            boolean isMoney = ControlInput.CheckInputMoney(textFieldWithdraw.getText());
+            if (!isMoney) {
+                JOptionPane.showMessageDialog(this,
+                        "Please input an correct Money",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                Double withdrawMoney = Double.parseDouble(textFieldWithdraw.getText());
+
+                int flag = ControlAccount.withdrawAccount(accountName, withdrawMoney, ControlAccount.typeString2Number(typeString));
+                if (flag==0) {
+                    JOptionPane.showMessageDialog(this,
+                            "Withdraw successfully!");
+                    lbNumBalance.setText("$" + String.format("%.2f", Double.parseDouble(ControlAccount.getBalanceType(accountName, true))));
+                    textFieldWithdraw.setText("");
+                }
+                else if (flag==1) {
+                    JOptionPane.showMessageDialog(this,
+                            "You need 1 more day to process your withdraw",
+                            "Message", JOptionPane.WARNING_MESSAGE);
+                    lbNumBalance.setText("$" + String.format("%.2f", Double.parseDouble(ControlAccount.getBalanceType(accountName, true))));
+                    textFieldWithdraw.setText("");
+                }
+                else if (flag==-1) {
+                    JOptionPane.showMessageDialog(this,
+                            "Not enough money!",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         });
     }
     @Override

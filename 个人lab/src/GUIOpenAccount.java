@@ -24,13 +24,13 @@ public class GUIOpenAccount extends JFrame implements ActionListener {
         panelDateSelect = new JPanel();
         panelDateSelect.setBorder(new EmptyBorder(30, 40, 40, 40));
         panelDateSelect.setLayout(new FlowLayout());
-        final JComboBox year = new JComboBox();
-        year.setModel(new DefaultComboBoxModel(getModel(1978, 2018)));
+        final JComboBox<String> year = new JComboBox<>();
+        year.setModel(new DefaultComboBoxModel<>(getModel(1978, 2018)));
         panelDateSelect.add(year);
-        final JComboBox month = new JComboBox();
-        month.setModel(new DefaultComboBoxModel(getModel(1, 12)));
+        final JComboBox<String> month = new JComboBox<>();
+        month.setModel(new DefaultComboBoxModel<>(getModel(1, 12)));
         panelDateSelect.add(month);
-        final JComboBox day = new JComboBox();
+        final JComboBox<String> day = new JComboBox<String>();
         panelDateSelect.add(day);
         year.addItemListener(e -> setDay(year, month, day));
         month.addItemListener(e -> setDay(year, month, day));
@@ -48,7 +48,7 @@ public class GUIOpenAccount extends JFrame implements ActionListener {
         textFieldName = new JTextField(SwingConstants.CENTER);
         textFieldAddress = new JTextField(SwingConstants.CENTER);
 
-        JComboBox comboBoxAccountType = new JComboBox();
+        JComboBox<String> comboBoxAccountType = new JComboBox<>();
         comboBoxAccountType.addItem("Saver");
         comboBoxAccountType.addItem("Junior");
         comboBoxAccountType.addItem("Current");
@@ -111,20 +111,27 @@ public class GUIOpenAccount extends JFrame implements ActionListener {
     }
 
     /**
-     * calculate days in select month & year
+     * calculate days in select month and year
+     * @param  year the selected year
+     * @param month the selected month
+     * @param  day the selected day
      */
-    private void setDay(JComboBox year, JComboBox month, JComboBox day) {
+    private void setDay(JComboBox<String> year, JComboBox<String> month, JComboBox<String> day) {
         int y = Integer.parseInt((String) year.getSelectedItem());
         int m = Integer.parseInt((String) month.getSelectedItem());
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, y);
         c.set(Calendar.MONTH, m - 1);
         int days = c.getActualMaximum(Calendar.DAY_OF_MONTH);
-        day.setModel(new DefaultComboBoxModel(getModel(1, days)));
+        day.setModel(new DefaultComboBoxModel<>(getModel(1, days)));
     }
 
+
     /**
-     * get String array [start, end]
+     get all the string from start to end
+     * @param start the start
+     * @param end the end
+     * @return a array of String
      */
     private String[] getModel(int start, int end) {
         String[] m = new String[end - start + 1];
@@ -134,6 +141,12 @@ public class GUIOpenAccount extends JFrame implements ActionListener {
         return m;
     }
 
+    /**
+     * @param x the year
+     * @param y the month
+     * @param z the date
+     * @return the correct String format of the birthday
+     */
     private String getBirthday(int x, int y, int z) {
         String returnString = null;
         returnString = "" + String.valueOf(x) + ControlDate.twoDigit(y) + ControlDate.twoDigit(z);

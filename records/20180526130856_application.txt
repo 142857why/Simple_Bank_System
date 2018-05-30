@@ -1,0 +1,4 @@
+Name: sunxiaonan
+Address: Beijing University of Posts and Telecommunications
+BirthDay: 20180201
+Type: Junior

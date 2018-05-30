@@ -1,4 +1,8 @@
 public class ControlInput {
+    /**
+     * @param str the user's input for the money
+     * @return whether ot not the user entering a correct money
+     */
     public static boolean CheckInputMoney(String str) {
         boolean finalFlag = true;
         char c;
@@ -7,7 +11,7 @@ public class ControlInput {
             finalFlag = false;
         else {
             int indexDot = str.indexOf('.');
-            System.out.println(indexDot);
+            //System.out.println(indexDot);
             for (int i = 0; i < indexDot; i++) {
                 c = str.charAt(i);
                 if (!checkNumber(c)) {
@@ -26,6 +30,10 @@ public class ControlInput {
         return finalFlag;
     }
 
+    /**
+     * @param c the given char needs to be checked
+     * @return whether or not c is a digit
+     */
     public static boolean checkNumber(char c) {
         boolean flag = false;
         if ((c>='0') && (c<='9')) flag = true;

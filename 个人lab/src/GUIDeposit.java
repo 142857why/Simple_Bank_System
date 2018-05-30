@@ -12,7 +12,7 @@ public class GUIDeposit extends JFrame implements ActionListener {
     private JButton btReturn;
     private JTextField textFieldAccountNumber;
     private JLabel lbDepositType;
-    private JComboBox comboBoxDepositType;
+    private JComboBox<String> comboBoxDepositType;
 
     public GUIDeposit() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -23,7 +23,7 @@ public class GUIDeposit extends JFrame implements ActionListener {
         btReturn = new JButton();
         textFieldAccountNumber = new JTextField();
         lbDepositType = new JLabel();
-        comboBoxDepositType = new JComboBox();
+        comboBoxDepositType = new JComboBox<>();
 
         //======== this ========
         setTitle("Welcome to Bank of Rui Zhou!");
@@ -77,6 +77,50 @@ public class GUIDeposit extends JFrame implements ActionListener {
         btReturn.addActionListener(e -> {
             dispose();
             new GUIManageAccount();
+        });
+
+        btDeposit.addActionListener(e -> {
+            boolean isAccount = ControlAccount.checkAccountExist(textFieldAccountNumber.getText());
+            boolean isMoney = ControlInput.CheckInputMoney(textFieldDeposit.getText());
+            if (!isAccount) {
+                JOptionPane.showMessageDialog(this,
+                        "Please input an correct Account Number",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                if (!isMoney) {
+                    JOptionPane.showMessageDialog(this,
+                            "Please input an correct Money",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    String accountName = textFieldAccountNumber.getText();
+                    if (ControlAccount.checkSuspend(accountName)) {
+                        JOptionPane.showMessageDialog(this,
+                                "Sorry, but the account is suspended!",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else {
+                        //System.out.println(textFieldDeposit.getText());
+                        Double depositMoney = Double.parseDouble(textFieldDeposit.getText());
+                        int depositType = comboBoxDepositType.getSelectedIndex();
+                        // 0 代表Cash
+                        // 1 代表uncleared
+                        if (ControlAccount.depositAccount(accountName, depositMoney, depositType)) {
+                            JOptionPane.showMessageDialog(this,
+                                    "Successfully Deposit!"
+                                    );
+                            textFieldDeposit.setText("");
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(this,
+                                    "You Deposit Needs 1 day to process",
+                                    "Important", JOptionPane.WARNING_MESSAGE);
+                            textFieldDeposit.setText("");
+                        }
+                    }
+                }
+            }
         });
     }
     @Override

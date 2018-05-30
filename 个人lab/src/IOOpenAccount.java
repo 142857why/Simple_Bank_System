@@ -1,6 +1,13 @@
 import java.io.*;
 
 public class IOOpenAccount {
+    /**
+     * this method takes a record for further credit check
+     * @param name the user's name
+     * @param address the user's address
+     * @param birthday the user's birthday
+     * @param accountType the user's account type
+     */
     public void writeRecord(String name, String address, String birthday, String accountType) {
         MyDate nowDate = new MyDate();
         File myFile = new File("./records", nowDate.toString() + "_application.txt");
@@ -20,10 +27,12 @@ public class IOOpenAccount {
         }
     }
 
+
     /**
-     * @param accountType to be added into the account information
-     * @param birthday initial password;
-     **/
+     * @param birthday the user's birthday
+     * @param accountType the user's account type
+     * @return the account name for further processing
+     */
     public static String newAccount(String birthday, String accountType) {
 
         //return the accountName

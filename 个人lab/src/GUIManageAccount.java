@@ -101,16 +101,17 @@ public class GUIManageAccount extends JFrame implements ActionListener {
                         else {
                             ControlAccount.suspendAccount(accountName, false);
                             dispose();
+                            IOAccount.clearDeposit(accountName);
                             new GUIWithdrawSuspendClose(accountName);
                         }
                     }
-                    //System.out.println("账户被停用了！");
 
                 }
                 else {
                     boolean checkPIN = ControlAccount.checkPassword(accountName, givenPIN);
                     if (checkPIN) {
                         dispose();
+                        IOAccount.clearDeposit(accountName);
                         new GUIWithdrawSuspendClose(accountName);
                     }
                     else {
@@ -126,6 +127,7 @@ public class GUIManageAccount extends JFrame implements ActionListener {
             dispose();
             new GUIDeposit();
         });
+
     }
     @Override
     public void actionPerformed(ActionEvent e) {

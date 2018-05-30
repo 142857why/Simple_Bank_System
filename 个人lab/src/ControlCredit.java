@@ -1,6 +1,13 @@
 import java.io.*;
 
 public class ControlCredit {
+    /**
+     * @param userName the username
+     * @param address the user's address
+     * @param birthday the user's birthday
+     * @param accountType the user's account type
+     * @return whether or not the user is in the blacklist
+     */
     public static boolean checkBlackList(String userName, String address, String birthday, String accountType) {
         boolean flag = false;
 

@@ -1,0 +1,4 @@
+Name: zhourui
+Address: BUPT
+BirthDay: 19970429
+Type: Current
